@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:cleanning_alert_bussines/assistants/assistants_methods.dart';
+import 'package:cleanning_alert_bussines/infoHandler/app_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../assistants/geofire_assistant.dart';
 import '../models/active_nearby_available_drivers.dart';
@@ -55,13 +57,15 @@ class _HomeTabPageState extends State<HomeTabPage> {
         CameraPosition(target: LatLngPosition, zoom: 14);
     newGoogleMapController!
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-    String humanReadableAddress =
-        await AssistantMethods.searchAddressForGeographicsCoordinates(
-            userCurrentPosition!, context);
+    if (mounted) {
+      String humanReadableAddress =
+          await AssistantMethods.searchAddressForGeographicsCoordinates(
+              userCurrentPosition!, context);
 
-    print(humanReadableAddress);
+      print(humanReadableAddress);
 
-    intializeGeoFireListener();
+      intializeGeoFireListener();
+    }
   }
 
   @override
@@ -76,19 +80,22 @@ class _HomeTabPageState extends State<HomeTabPage> {
     createActiveNearByDriverIconMaker();
     return Stack(
       children: [
-        GoogleMap(
-          mapType: MapType.normal,
-          myLocationEnabled: true,
-          zoomGesturesEnabled: true,
-          markers: markerSet,
-          circles: circleSet,
-          zoomControlsEnabled: true,
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (GoogleMapController controller) {
-            _controllerGoogleMap.complete(controller);
-            newGoogleMapController = controller;
-            locateUserPosition();
-          },
+        ChangeNotifierProvider(
+          create: (context) => AppInfo(),
+          child: GoogleMap(
+            mapType: MapType.normal,
+            myLocationEnabled: true,
+            zoomGesturesEnabled: true,
+            markers: markerSet,
+            circles: circleSet,
+            zoomControlsEnabled: true,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) {
+              _controllerGoogleMap.complete(controller);
+              newGoogleMapController = controller;
+              locateUserPosition();
+            },
+          ),
         ),
       ],
     );
