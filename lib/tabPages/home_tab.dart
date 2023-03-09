@@ -95,58 +95,60 @@ class _HomeTabPageState extends State<HomeTabPage> {
   }
 
   intializeGeoFireListener() {
-    Geofire.initialize('activeDrivers');
-    Geofire.queryAtLocation(
-            userCurrentPosition!.latitude, userCurrentPosition!.longitude, 300)!
-        .listen((map) {
-      print(map);
-      if (map != null) {
-        var callBack = map['callBack'];
+    if (mounted) {
+      Geofire.initialize('activeDrivers');
+      Geofire.queryAtLocation(userCurrentPosition!.latitude,
+              userCurrentPosition!.longitude, 300)!
+          .listen((map) {
+        print(map);
+        if (map != null) {
+          var callBack = map['callBack'];
 
-        //latitude will be retrieved from map['latitude']
-        //longitude will be retrieved from map['longitude']
+          //latitude will be retrieved from map['latitude']
+          //longitude will be retrieved from map['longitude']
 
-        switch (callBack) {
-          case Geofire.onKeyEntered: //cuando se pone online un driver
-            ActiveNearbyAvailableDrivers activeNearbyAvailableDriver =
-                ActiveNearbyAvailableDrivers();
-            activeNearbyAvailableDriver.locationLatitude = map['latitude'];
-            activeNearbyAvailableDriver.locationLongitude = map['longitude'];
-            activeNearbyAvailableDriver.driverId = map['key'];
-            GeoFireAssistants.activeNearbyAvailableDriverList
-                .add(activeNearbyAvailableDriver);
-            if (activeNearbyDriversKeysLoaded == true) {
+          switch (callBack) {
+            case Geofire.onKeyEntered: //cuando se pone online un driver
+              ActiveNearbyAvailableDrivers activeNearbyAvailableDriver =
+                  ActiveNearbyAvailableDrivers();
+              activeNearbyAvailableDriver.locationLatitude = map['latitude'];
+              activeNearbyAvailableDriver.locationLongitude = map['longitude'];
+              activeNearbyAvailableDriver.driverId = map['key'];
+              GeoFireAssistants.activeNearbyAvailableDriverList
+                  .add(activeNearbyAvailableDriver);
+              if (activeNearbyDriversKeysLoaded == true) {
+                displayActiveDriverOnUserMap();
+              }
+              break;
+
+            case Geofire.onKeyExited: //cuando se pone offline un driver
+              GeoFireAssistants.deleteOffLineDriverFromList(map['key']);
               displayActiveDriverOnUserMap();
-            }
-            break;
+              break;
 
-          case Geofire.onKeyExited: //cuando se pone offline un driver
-            GeoFireAssistants.deleteOffLineDriverFromList(map['key']);
-            displayActiveDriverOnUserMap();
-            break;
+            case Geofire
+                .onKeyMoved: //cuando el driver se mueve - actualizar ubicacion
+              ActiveNearbyAvailableDrivers activeNearbyAvailableDriver =
+                  ActiveNearbyAvailableDrivers();
+              activeNearbyAvailableDriver.locationLatitude = map['latitude'];
+              activeNearbyAvailableDriver.locationLongitude = map['longitude'];
+              activeNearbyAvailableDriver.driverId = map['key'];
+              GeoFireAssistants.updateActiveNearbyAvailableDriverLocation(
+                  activeNearbyAvailableDriver);
+              displayActiveDriverOnUserMap();
+              break;
 
-          case Geofire
-              .onKeyMoved: //cuando el driver se mueve - actualizar ubicacion
-            ActiveNearbyAvailableDrivers activeNearbyAvailableDriver =
-                ActiveNearbyAvailableDrivers();
-            activeNearbyAvailableDriver.locationLatitude = map['latitude'];
-            activeNearbyAvailableDriver.locationLongitude = map['longitude'];
-            activeNearbyAvailableDriver.driverId = map['key'];
-            GeoFireAssistants.updateActiveNearbyAvailableDriverLocation(
-                activeNearbyAvailableDriver);
-            displayActiveDriverOnUserMap();
-            break;
-
-          case Geofire.onGeoQueryReady: //mostrar conductores activos/enlinea
-            activeNearbyDriversKeysLoaded = true;
-            displayActiveDriverOnUserMap();
-            break;
+            case Geofire.onGeoQueryReady: //mostrar conductores activos/enlinea
+              activeNearbyDriversKeysLoaded = true;
+              displayActiveDriverOnUserMap();
+              break;
+          }
         }
-      }
-      if (mounted) {
-        setState(() {});
-      }
-    });
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    }
   }
 
   displayActiveDriverOnUserMap() {
@@ -169,21 +171,25 @@ class _HomeTabPageState extends State<HomeTabPage> {
               rotation: 360);
           driverMarkerSet.add(marker);
         }
-        setState(() {
-          markerSet = driverMarkerSet;
-        });
+        if (mounted) {
+          setState(() {
+            markerSet = driverMarkerSet;
+          });
+        }
       });
     }
   }
 
   createActiveNearByDriverIconMaker() {
-    if (activeNearbyIcon == null) {
-      ImageConfiguration imageConfiguration =
-          createLocalImageConfiguration(context, size: const Size(2, 2));
-      BitmapDescriptor.fromAssetImage(imageConfiguration, 'images/car.png')
-          .then((value) {
-        activeNearbyIcon = value;
-      });
+    if (mounted) {
+      if (activeNearbyIcon == null) {
+        ImageConfiguration imageConfiguration =
+            createLocalImageConfiguration(context, size: const Size(2, 2));
+        BitmapDescriptor.fromAssetImage(imageConfiguration, 'images/car.png')
+            .then((value) {
+          activeNearbyIcon = value;
+        });
+      }
     }
   }
 }
