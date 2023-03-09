@@ -143,34 +143,37 @@ class _HomeTabPageState extends State<HomeTabPage> {
             break;
         }
       }
-
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 
   displayActiveDriverOnUserMap() {
-    setState(() {
-      markerSet.clear();
-      circleSet.clear();
-
-      Set<Marker> driverMarkerSet = Set<Marker>();
-
-      for (ActiveNearbyAvailableDrivers eachDriver
-          in GeoFireAssistants.activeNearbyAvailableDriverList) {
-        LatLng eachDriverActivePosition =
-            LatLng(eachDriver.locationLatitude!, eachDriver.locationLongitude!);
-
-        Marker marker = Marker(
-            markerId: MarkerId(eachDriver.driverId!),
-            position: eachDriverActivePosition,
-            icon: activeNearbyIcon!,
-            rotation: 360);
-        driverMarkerSet.add(marker);
-      }
+    if (mounted) {
       setState(() {
-        markerSet = driverMarkerSet;
+        markerSet.clear();
+        circleSet.clear();
+
+        Set<Marker> driverMarkerSet = Set<Marker>();
+
+        for (ActiveNearbyAvailableDrivers eachDriver
+            in GeoFireAssistants.activeNearbyAvailableDriverList) {
+          LatLng eachDriverActivePosition = LatLng(
+              eachDriver.locationLatitude!, eachDriver.locationLongitude!);
+
+          Marker marker = Marker(
+              markerId: MarkerId(eachDriver.driverId!),
+              position: eachDriverActivePosition,
+              icon: activeNearbyIcon!,
+              rotation: 360);
+          driverMarkerSet.add(marker);
+        }
+        setState(() {
+          markerSet = driverMarkerSet;
+        });
       });
-    });
+    }
   }
 
   createActiveNearByDriverIconMaker() {
