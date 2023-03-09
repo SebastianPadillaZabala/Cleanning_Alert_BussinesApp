@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "491205189397",
+    "firebase_url": "https://cleaningalert-6d33b-default-rtdb.firebaseio.com",
+    "project_id": "cleaningalert-6d33b",
+    "storage_bucket": "cleaningalert-6d33b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491205189397:android:759c63ad20cf4dec34131c",
+        "android_client_info": {
+          "package_name": "com.sebastian.cleanningalertbussines"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491205189397-eiqumr9us1qjn9g2fc4m7mf1tn5vb1jn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8rhFmkdDc17R2dmaRHH6r6bBn0olZ8tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491205189397-eiqumr9us1qjn9g2fc4m7mf1tn5vb1jn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491205189397:android:bda9760a5309c19234131c",
+        "android_client_info": {
+          "package_name": "com.sebastian.cleanningalertdriver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491205189397-eiqumr9us1qjn9g2fc4m7mf1tn5vb1jn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8rhFmkdDc17R2dmaRHH6r6bBn0olZ8tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491205189397-eiqumr9us1qjn9g2fc4m7mf1tn5vb1jn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491205189397:android:51780feb43fb63e834131c",
+        "android_client_info": {
+          "package_name": "com.sebastian.cleanningalertneighbor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491205189397-eiqumr9us1qjn9g2fc4m7mf1tn5vb1jn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8rhFmkdDc17R2dmaRHH6r6bBn0olZ8tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491205189397-eiqumr9us1qjn9g2fc4m7mf1tn5vb1jn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
