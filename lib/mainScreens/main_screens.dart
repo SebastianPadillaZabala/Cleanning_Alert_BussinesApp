@@ -1,4 +1,5 @@
 import 'package:cleanning_alert_bussines/authentication/login_screen.dart';
+import 'package:cleanning_alert_bussines/tabPages/form.dart';
 import 'package:cleanning_alert_bussines/tabPages/ubicacion_tab.dart';
 import 'package:cleanning_alert_bussines/tabPages/home_tab.dart';
 import 'package:cleanning_alert_bussines/tabPages/profile_tab.dart';
@@ -73,7 +74,7 @@ class _MainScreenState extends State<MainScreen>
         children: [
           HomeTabPage(),
           UbicacionTabPage(),
-          ProfileTabPage(),
+          FormPage(),
           ProfileTabPage()
         ],
       ),
@@ -88,8 +89,8 @@ class _MainScreenState extends State<MainScreen>
             label: 'Rutas',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.alarm_outlined),
-            label: 'Alert',
+            icon: Icon(Icons.file_present),
+            label: 'Form',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
